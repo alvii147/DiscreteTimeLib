@@ -31,4 +31,4 @@ jobs:
         flake8 DiscreteTimeLib/ --count --show-source --statistics
     - name: Test with pytest
       run: |
-        chmod +x ./test.sh
+        ./test.sh
