@@ -1,1 +1,1 @@
-from .signals import DiscreteTimeSignal
+from .signals import DiscreteTimeSignal  # pragma: no cover

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 class DiscreteTimeSignal:
     '''
     Discrete-time signal object implemented with digital signal processing
@@ -48,7 +49,7 @@ class DiscreteTimeSignal:
             index=keys,
         )
 
-    def __str__(self): # pragma: no cover
+    def __str__(self):  # pragma: no cover
         '''
         String representation of object.
 
