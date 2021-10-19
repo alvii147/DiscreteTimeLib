@@ -85,10 +85,107 @@ class DiscreteTimeSignal:
         value : float
         '''
 
+        # access value in dataframe using key
         try:
             return self.signal.loc[key]['x[n]']
+        # return 0 if key does not exist
         except KeyError:
             return 0.0
+
+    def __eq__(self, sig):
+        '''
+        Compare this and given discrete-time signal for equality.
+
+        Parameters
+        ----------
+        sig : DiscreteTimeSignal object
+            Given discrete-time signal
+
+        Returns
+        -------
+        equality : bool
+            Boolean value indicating equality.
+        '''
+
+        # get iterator range
+        if self.length() == 0:
+            if sig.length() == 0:
+                return True
+            else:
+                iter_min_idx = sig.min_idx
+                iter_max_idx = sig.max_idx
+        elif sig.length() == 0:
+            iter_min_idx = self.min_idx
+            iter_max_idx = self.max_idx
+        else:
+            iter_min_idx = min(self.min_idx, sig.min_idx)
+            iter_max_idx = max(self.max_idx, sig.max_idx)
+
+        # iterate each index and test equality
+        for n in range(iter_min_idx, iter_max_idx + 1):
+            if self[n] != sig[n]:
+                return False
+
+        return True
+
+    def __ne__(self, sig):
+        '''
+        Compare this and given discrete-time signal for inequality.
+
+        Parameters
+        ----------
+        sig : DiscreteTimeSignal object
+            Given discrete-time signal
+
+        Returns
+        -------
+        inequality : bool
+            Boolean value indicating equality.
+        '''
+
+        return not self.__eq__(sig)
+
+    def __add__(self, sig):
+        '''
+        Add adjacent elements between this and given discrete-time signal
+        objects.
+
+        Parameters
+        ----------
+        sig : DiscreteTimeSignal
+            Given discrete-time signal
+
+        Returns
+        -------
+        sum_signal : DiscreteTimeSignal object
+            Summation discrete-time signal object.
+        '''
+
+        # get iterator range
+        if self.length() == 0:
+            if sig.length() == 0:
+                empty_sum = DiscreteTimeSignal()
+
+                return empty_sum
+            else:
+                sum_min_idx = sig.min_idx
+                sum_max_idx = sig.max_idx
+        elif sig.length() == 0:
+            sum_min_idx = self.min_idx
+            sum_max_idx = self.max_idx
+        else:
+            sum_min_idx = min(self.min_idx, sig.min_idx)
+            sum_max_idx = max(self.max_idx, sig.max_idx)
+
+        # iterate each index and record summation
+        data = ()
+        for n in range(sum_min_idx, sum_max_idx + 1):
+            data += ((n, self[n] + sig[n]),)
+
+        # create new discrete-time signal object using data
+        sum_signal = DiscreteTimeSignal(data)
+
+        return sum_signal
 
     def __mul__(self, sig):
         '''
@@ -102,7 +199,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        conv : DiscreteTimeSignal
+        conv_signal : DiscreteTimeSignal object
             Discrete convolution discrete-time signal object.
         '''
 
@@ -118,7 +215,6 @@ class DiscreteTimeSignal:
 
         # compute convolution
         data = ()
-        idx = 0
         for n in range(conv_min_idx, conv_max_idx + 1):
             conv_sum = 0
             for k in range(self.min_idx, self.max_idx + 1):
@@ -126,9 +222,7 @@ class DiscreteTimeSignal:
 
             data += ((n, conv_sum),)
 
-            idx += 1
-
         # create new discrete-time signal object using data
-        conv = DiscreteTimeSignal(data)
+        conv_signal = DiscreteTimeSignal(data)
 
-        return conv
+        return conv_signal
