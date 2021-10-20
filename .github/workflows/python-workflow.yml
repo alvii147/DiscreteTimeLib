@@ -31,4 +31,6 @@ jobs:
         flake8 DiscreteTimeLib/ --count --show-source --statistics
     - name: Test with pytest
       run: |
-        ./test.sh
+        export PYTHONPATH=$PWD
+        coverage run --source DiscreteTimeLib -m pytest -v
+        coverage report -m
