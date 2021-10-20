@@ -60,13 +60,13 @@ class DiscreteTimeSignal:
 
         return str(self.signal)
 
-    def length(self):
+    def __len__(self):
         '''
         Get length of signal.
 
         Returns
         -------
-        length : int
+        len : int
         '''
 
         return self.signal.shape[0]
@@ -108,13 +108,13 @@ class DiscreteTimeSignal:
         '''
 
         # get iterator range
-        if self.length() == 0:
-            if sig.length() == 0:
+        if len(self) == 0:
+            if len(sig) == 0:
                 return True
             else:
                 iter_min_idx = sig.min_idx
                 iter_max_idx = sig.max_idx
-        elif sig.length() == 0:
+        elif len(sig) == 0:
             iter_min_idx = self.min_idx
             iter_max_idx = self.max_idx
         else:
@@ -162,15 +162,15 @@ class DiscreteTimeSignal:
         '''
 
         # get iterator range
-        if self.length() == 0:
-            if sig.length() == 0:
+        if len(self) == 0:
+            if len(sig) == 0:
                 empty_sum = DiscreteTimeSignal()
 
                 return empty_sum
             else:
                 sum_min_idx = sig.min_idx
                 sum_max_idx = sig.max_idx
-        elif sig.length() == 0:
+        elif len(sig) == 0:
             sum_min_idx = self.min_idx
             sum_max_idx = self.max_idx
         else:
@@ -203,7 +203,7 @@ class DiscreteTimeSignal:
             Discrete convolution discrete-time signal object.
         '''
 
-        if self.length() == 0 or sig.length() == 0:
+        if len(self) == 0 or len(sig) == 0:
             empty_conv = DiscreteTimeSignal()
 
             return empty_conv

@@ -25,7 +25,7 @@ def generate_random_dts(
 def test_DiscreteTimeSignal_init():
     x_n, data = generate_random_dts()
 
-    assert x_n.length() == np.shape(data)[0]
+    assert len(x_n) == np.shape(data)[0]
 
     assert x_n[data[0][0] - 1] == 0
 
@@ -99,7 +99,7 @@ def test_DiscreteTimeSignal_sum_empty():
     y_n = DiscreteTimeSignal()
 
     sum_signal = x_n + y_n
-    assert sum_signal.length() == 0
+    assert len(sum_signal) == 0
 
 @pytest.mark.parametrize('execution_id', range(10))
 def test_DiscreteTimeSignal_sum(execution_id):
@@ -131,7 +131,7 @@ def test_DiscreteTimeSignal_conv_empty():
 
     conv = x_n * h_n
 
-    assert conv.length() == 0
+    assert len(conv) == 0
 
 @pytest.mark.parametrize('execution_id', range(10))
 def test_DiscreteTimeSignal_conv(execution_id):
