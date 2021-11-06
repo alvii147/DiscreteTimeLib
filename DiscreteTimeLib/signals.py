@@ -4,7 +4,7 @@ import pandas as pd
 
 class DiscreteTimeSignal:
     '''
-    Discrete-time signal object implemented with digital signal processing
+    Discrete-time signal object, implemented with digital signal processing
     functions.
     '''
 
@@ -14,10 +14,10 @@ class DiscreteTimeSignal:
 
         Parameters
         ----------
-        *data : numpy.ndarray
+        data : numpy.ndarray
             Two-dimensional array-like representing signal data.
 
-            For e.g., `((0, 2), (1, 4))` indicates `x[0] = 2` and `x[1] = 4`
+            For e.g., `((0, 2), (1, 4))` indicates `x[0] = 2` and `x[1] = 4`.
         '''
 
         data_shape = np.shape(data)
@@ -92,6 +92,22 @@ class DiscreteTimeSignal:
         except KeyError:
             return 0.0
 
+    def values(self):
+        '''
+        Fetch all signal values.
+
+        Returns
+        -------
+        values : ndarray
+        '''
+
+        # fill array with values
+        values = np.zeros(self.max_idx - self.min_idx + 1, dtype=np.float64)
+        for n in range(self.min_idx, self.max_idx + 1):
+            values[n - self.min_idx] = self[n]
+
+        return values
+
     def __eq__(self, sig):
         '''
         Compare this and given discrete-time signal for equality.
@@ -99,7 +115,7 @@ class DiscreteTimeSignal:
         Parameters
         ----------
         sig : DiscreteTimeSignal object
-            Given discrete-time signal
+            Given discrete-time signal.
 
         Returns
         -------
@@ -123,7 +139,7 @@ class DiscreteTimeSignal:
 
         # iterate each index and test equality
         for n in range(iter_min_idx, iter_max_idx + 1):
-            if self[n] != sig[n]:
+            if not np.isclose(self[n], sig[n]):
                 return False
 
         return True
@@ -135,7 +151,7 @@ class DiscreteTimeSignal:
         Parameters
         ----------
         sig : DiscreteTimeSignal object
-            Given discrete-time signal
+            Given discrete-time signal.
 
         Returns
         -------
@@ -153,12 +169,12 @@ class DiscreteTimeSignal:
         Parameters
         ----------
         sig : DiscreteTimeSignal
-            Given discrete-time signal
+            Given discrete-time signal.
 
         Returns
         -------
         sum_signal : DiscreteTimeSignal object
-            Summation discrete-time signal object.
+            Summation discrete-time signal.
         '''
 
         # get iterator range
@@ -187,7 +203,31 @@ class DiscreteTimeSignal:
 
         return sum_signal
 
-    def __mul__(self, sig):
+    def scalar_mul(self, scalar):
+        '''
+        Compute scalar multiplication on signal
+
+        Parameters
+        ----------
+        scalar : int
+            Given scalar value.
+
+        Returns
+        -------
+        scaled_signal : DiscreteTimeSignal object
+            Scaled discrete-time signal.
+        '''
+
+        data = ()
+        for n in range(self.min_idx, self.max_idx + 1):
+            data += ((n, self[n] * scalar),)
+
+        # create new discrete-time signal object using data
+        scaled_signal = DiscreteTimeSignal(data)
+
+        return scaled_signal
+
+    def conv(self, sig):
         '''
         Compute discrete convolution between this and given discrete-time
         signal objects.
@@ -195,12 +235,12 @@ class DiscreteTimeSignal:
         Parameters
         ----------
         sig : DiscreteTimeSignal
-            Given discrete-time signal
+            Given discrete-time signal.
 
         Returns
         -------
         conv_signal : DiscreteTimeSignal object
-            Discrete convolution discrete-time signal object.
+            Discrete convolution discrete-time signal.
         '''
 
         if len(self) == 0 or len(sig) == 0:
@@ -214,15 +254,43 @@ class DiscreteTimeSignal:
         conv_max_idx = self.max_idx + sig.max_idx
 
         # compute convolution
-        data = ()
-        for n in range(conv_min_idx, conv_max_idx + 1):
-            conv_sum = 0
-            for k in range(self.min_idx, self.max_idx + 1):
-                conv_sum += self[k] * sig[n - k]
-
-            data += ((n, conv_sum),)
+        conv = np.convolve(self.values(), sig.values())
 
         # create new discrete-time signal object using data
+        data = ()
+        for n in range(conv_min_idx, conv_max_idx + 1):
+            data += ((n, conv[n - conv_min_idx]),)
+
         conv_signal = DiscreteTimeSignal(data)
 
         return conv_signal
+
+    def __mul__(self, param):
+        '''
+        Compute scalar multiplication or discrete convolution, depending on
+        parameter type
+
+        Parameters
+        ----------
+        param : float or DiscreteTimeSignal
+            Given scalar value or discrete-time signal.
+
+        Returns
+        -------
+        signal : DiscreteTimeSignal object
+            Resulting discrete-time signal.
+        '''
+
+        # scalar multiplication if scalar
+        if np.isscalar(param):
+            return self.scalar_mul(param)
+        # convolution if discrete-time signal
+        elif isinstance(param, DiscreteTimeSignal):
+            return self.conv(param)
+        # TypeError otherwise
+        else:
+            err_msg = f'Unknown type {type(param)}.'
+            err_msg += 'Use scalar for scalar multiplication '
+            err_msg += 'or DiscreteTimeSignal object for convolution.'
+
+            raise TypeError(err_msg)
