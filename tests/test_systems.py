@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+import numpy.testing as npt
 from DiscreteTimeLib import DiscreteTimeSystem
 
 from .utils import generate_random_system, generate_random_dts
@@ -43,4 +44,4 @@ def test_DiscreteTimeSystem_filter(execution_id):
 
         y_expected = y_expected / a[0]
 
-        assert np.allclose(y_n[n], y_expected)
+        npt.assert_allclose(y_n[n], y_expected)
