@@ -1,30 +1,36 @@
 import numpy as np
 from DiscreteTimeLib import DiscreteTimeSignal, DiscreteTimeSystem
+import matplotlib.pyplot as plt
+
 
 if __name__ == '__main__':
-    x_n = [1, 4, 2, -1, 6]
-    data_x = [[n, x_n[n]] for n in range(-3, len(x_n) - 3)]
-    x = DiscreteTimeSignal(data_x)
-    print(x)
-    print('')
+    N = 64
+    data_f = [
+        [n, np.cos(2 * np.pi * n) / (N - 1)]
+        for n in range(N)
+    ]
+    f = DiscreteTimeSignal(data_f)
 
-    b = [1]
-    a = [1, -1]
-    H = DiscreteTimeSystem(b, a)
-    y = H.filter(x)
-    print(y)
-    print('')
+    a = -2 + np.sqrt(3)
 
-    y_expected = []
-    for n in range(data_x[0][0], data_x[-1][0] + 1):
-        val = 0
-        for i in range(len(b)):
-            val += b[i] * x[n - i]
+    Hp = DiscreteTimeSystem([1], [1, -a])
+    c_p = Hp.filter(f)
 
-        for i in range(1, len(a)):
-            val -= a[i] * y[n - i]
+    Hm = DiscreteTimeSystem([1], [1, -1/a])
+    c_m = Hm.filter(f)
 
-        val = val / a[0]
-        y_expected.append(val)
+    g = (6 * a) / ((a ** 2) - 1)
+    c = g * (c_p - c_m)
 
-    print(y_expected)
+    data_b = (
+        (-1, 1/6),
+        (0, 2/3),
+        (1, 1/6),
+    )
+    b = DiscreteTimeSignal(data_b)
+
+    fc = c * b
+
+    plt.plot(fc.values(), color='orchid')
+    plt.ylim(-1.5, 1.5)
+    plt.show()

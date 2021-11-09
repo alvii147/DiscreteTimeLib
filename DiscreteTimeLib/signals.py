@@ -26,6 +26,9 @@ class DiscreteTimeSignal:
         if data_shape[0] > 0 and (len(data_shape) < 2 or data_shape[1] != 2):
             raise ValueError('data must consist of key-value pairs')
 
+        # set NumPy array priority
+        self.__array_priority__ = 10000
+
         # discrete signal indices
         keys = np.zeros(data_shape[0], dtype=np.int64)
         # discrete signal values
@@ -161,6 +164,53 @@ class DiscreteTimeSignal:
 
         return not self.__eq__(sig)
 
+    def element_wise_operation(self, sig, op='add'):
+        '''
+        Perform element-wise operation between this and given discrete-time
+        signal objects.
+
+        Parameters
+        ----------
+        sig : DiscreteTimeSignal
+            Given discrete-time signal.
+
+        op : Operation to perform ('add'/'sub')
+
+        Returns
+        -------
+        result_signal : DiscreteTimeSignal object
+            Resulting discrete-time signal.
+        '''
+
+        # get iterator range
+        if len(self) == 0:
+            if len(sig) == 0:
+                empty_signal = DiscreteTimeSignal()
+
+                return empty_signal
+            else:
+                result_min_idx = sig.min_idx
+                result_max_idx = sig.max_idx
+        elif len(sig) == 0:
+            result_min_idx = self.min_idx
+            result_max_idx = self.max_idx
+        else:
+            result_min_idx = min(self.min_idx, sig.min_idx)
+            result_max_idx = max(self.max_idx, sig.max_idx)
+
+        # iterate each index and record resulting values
+        data = ()
+        for n in range(result_min_idx, result_max_idx + 1):
+            if op == 'add':
+                data += ((n, self[n] + sig[n]),)
+            elif op == 'sub':
+                data += ((n, self[n] - sig[n]),)
+
+        # create new discrete-time signal object using data
+        result_signal = DiscreteTimeSignal(data)
+
+        return result_signal
+
     def __add__(self, sig):
         '''
         Add adjacent elements between this and given discrete-time signal
@@ -177,31 +227,25 @@ class DiscreteTimeSignal:
             Summation discrete-time signal.
         '''
 
-        # get iterator range
-        if len(self) == 0:
-            if len(sig) == 0:
-                empty_sum = DiscreteTimeSignal()
+        return self.element_wise_operation(sig, op='add')
 
-                return empty_sum
-            else:
-                sum_min_idx = sig.min_idx
-                sum_max_idx = sig.max_idx
-        elif len(sig) == 0:
-            sum_min_idx = self.min_idx
-            sum_max_idx = self.max_idx
-        else:
-            sum_min_idx = min(self.min_idx, sig.min_idx)
-            sum_max_idx = max(self.max_idx, sig.max_idx)
+    def __sub__(self, sig):
+        '''
+        Subtract adjacent elements between this and given discrete-time
+        signal objects.
 
-        # iterate each index and record summation
-        data = ()
-        for n in range(sum_min_idx, sum_max_idx + 1):
-            data += ((n, self[n] + sig[n]),)
+        Parameters
+        ----------
+        sig : DiscreteTimeSignal
+            Given discrete-time signal.
 
-        # create new discrete-time signal object using data
-        sum_signal = DiscreteTimeSignal(data)
+        Returns
+        -------
+        sub_signal : DiscreteTimeSignal object
+            Subtracted discrete-time signal.
+        '''
 
-        return sum_signal
+        return self.element_wise_operation(sig, op='sub')
 
     def scalar_mul(self, scalar):
         '''
@@ -294,3 +338,21 @@ class DiscreteTimeSignal:
             err_msg += 'or DiscreteTimeSignal object for convolution.'
 
             raise TypeError(err_msg)
+
+    def __rmul__(self, param):
+        '''
+        Compute scalar multiplication or discrete convolution, depending on
+        parameter type (reverse method)
+
+        Parameters
+        ----------
+        param : float or DiscreteTimeSignal
+            Given scalar value or discrete-time signal.
+
+        Returns
+        -------
+        signal : DiscreteTimeSignal object
+            Resulting discrete-time signal.
+        '''
+
+        return self.__mul__(param)

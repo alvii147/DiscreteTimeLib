@@ -109,6 +109,45 @@ def test_DiscreteTimeSignal_sum(execution_id):
 
         npt.assert_almost_equal(sum_signal[n], x_k + y_k)
 
+def test_DiscreteTimeSignal_sub_empty():
+    x_n = DiscreteTimeSignal()
+    y_n, data_y = generate_random_dts()
+
+    sub_signal = x_n - y_n
+    assert sub_signal == -1 * y_n
+
+    sub_signal = y_n - x_n
+    assert sub_signal == y_n
+
+    y_n = DiscreteTimeSignal()
+
+    sub_signal = x_n - y_n
+    assert len(sub_signal) == 0
+
+@pytest.mark.parametrize('execution_id', range(10))
+def test_DiscreteTimeSignal_sub(execution_id):
+    x_n, data_x = generate_random_dts()
+    y_n, data_y = generate_random_dts()
+
+    sum_signal = x_n - y_n
+
+    sum_min_idx = min(data_x[0][0], data_y[0][0])
+    sum_max_idx = max(data_x[-1][0], data_y[-1][0])
+    for n in range(sum_min_idx, sum_max_idx + 1):
+        x_k = 0.0
+        for i in range(np.shape(data_x)[0]):
+            if data_x[i][0] == n:
+                x_k = data_x[i][1]
+                break
+
+        y_k = 0.0
+        for i in range(np.shape(data_y)[0]):
+            if data_y[i][0] == n:
+                y_k = data_y[i][1]
+                break
+
+        npt.assert_almost_equal(sum_signal[n], x_k - y_k)
+
 def test_DiscreteTimeSignal_mul_error_type():
     x_n, data_x = generate_random_dts()
     multiplier = np.zeros((4, 4))
@@ -122,6 +161,11 @@ def test_DiscreteTimeSignal_scalar_mul(execution_id):
     scalar = generate_random_scalar()
 
     scaled_signal = x_n * scalar
+
+    for n in range(data_x[0][0], data_x[-1][0] + 1):
+        npt.assert_almost_equal(scaled_signal[n], x_n[n] * scalar)
+
+    scaled_signal = scalar * x_n
 
     for n in range(data_x[0][0], data_x[-1][0] + 1):
         npt.assert_almost_equal(scaled_signal[n], x_n[n] * scalar)
