@@ -30,6 +30,24 @@ def test_DiscreteTimeSignal_init_error_shape():
     with pytest.raises(ValueError):
         DiscreteTimeSignal(data)
 
+def test_DiscreteTimeSignal_keys_values():
+    x_n, data = generate_random_dts()
+
+    keys = x_n.keys()
+    values = x_n.values()
+
+    n_keys = 0
+    n_data = 0
+
+    while n_keys < np.shape(keys)[0] and n_data < np.shape(data)[0]:
+        if data[n_data][0] == keys[n_keys]:
+            npt.assert_almost_equal(data[n_data][1], values[n_keys])
+            n_data += 1
+
+        n_keys += 1
+
+    assert n_data == np.shape(data)[0]
+
 def test_DiscreteTimeSignal_equality():
     x_n = DiscreteTimeSignal()
     y_n = DiscreteTimeSignal()

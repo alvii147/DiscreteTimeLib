@@ -95,6 +95,19 @@ class DiscreteTimeSignal:
         except KeyError:
             return 0.0
 
+    def keys(self):
+        '''
+        Fetch all signal keys.
+
+        Returns
+        -------
+        values : ndarray
+        '''
+
+        keys = np.arange(self.min_idx, self.max_idx + 1)
+
+        return keys
+
     def values(self):
         '''
         Fetch all signal values.
