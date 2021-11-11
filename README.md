@@ -1,6 +1,6 @@
 # DiscreteTimeLib
 
-**DiscreteTimeLib** is a Python library for the analysis of discrete-time signals and systems. See [documentation](https://alvii147.github.io/DiscreteTimeLib/docs/build/html/index.html) for more information.
+**DiscreteTimeLib** is a Python library for the analysis of discrete-time signals and systems. See [documentation](https://alvii147.github.io/DiscreteTimeLib/build/html/index.html) for more information.
 
 ## Overview
 
