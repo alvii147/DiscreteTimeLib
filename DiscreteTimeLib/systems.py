@@ -8,6 +8,14 @@ class DiscreteTimeSystem:
     '''
     Discrete-time system object, implemented as a digital filter.
 
+    Parameters `b` and `a` are numerator and denominator coefficients for
+    the transfer function of the system.
+
+    .. math::
+        H(z) =
+        \\frac{b_0 + b_1 z^{-1} + ... + b_n z^{-n}}
+        {a_0 + a_1 z^{-1} + ... + a_m z^{-m}}
+
     Parameters
     ----------
     b : numpy.ndarray

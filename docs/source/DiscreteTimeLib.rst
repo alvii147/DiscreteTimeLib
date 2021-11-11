@@ -1,9 +1,6 @@
 DiscreteTimeLib package
 =======================
 
-Submodules
-----------
-
 DiscreteTimeLib.signals module
 ------------------------------
 

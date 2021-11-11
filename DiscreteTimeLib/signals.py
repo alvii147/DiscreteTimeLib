@@ -17,8 +17,6 @@ class DiscreteTimeSignal:
 
     Examples
     --------
-    >>> from DiscreteTimeLib import DiscreteTimeSignal
-    >>> import matplotlib.pyplot as plt
     >>> data = ((-3, -2.2),
     ...         (-2, -1),
     ...         (-1, 1.5),
