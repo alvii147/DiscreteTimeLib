@@ -7,6 +7,16 @@ from DiscreteTimeLib.signals import DiscreteTimeSignal
 class DiscreteTimeSystem:
     '''
     Discrete-time system object, implemented as a digital filter.
+
+    Parameters
+    ----------
+    b : numpy.ndarray
+        One-dimensional array-like representing transfer function
+        numerator coefficients.
+
+    a : numpy.ndarray
+        One-dimensional array-like representing transfer function
+        denominator coefficients.
     '''
 
     def __init__(self, b, a):
@@ -61,12 +71,12 @@ class DiscreteTimeSystem:
 
         Parameters
         ----------
-        sig : DiscreteTimeSignal object
+        sig : DiscreteTimeSignal
             Given discrete-time signal.
 
         Returns
         -------
-        y_n : DiscreteTimeSignal object
+        y_n : DiscreteTimeSignal
             Filtered discrete-time signal.
         '''
 

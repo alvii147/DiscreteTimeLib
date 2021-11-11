@@ -6,6 +6,36 @@ class DiscreteTimeSignal:
     '''
     Discrete-time signal object, implemented with digital signal processing
     functions.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        Two-dimensional array-like representing signal data.
+
+        For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
+        ``x[1] = 4``.
+
+    Examples
+    --------
+    >>> from DiscreteTimeLib import DiscreteTimeSignal
+    >>> import matplotlib.pyplot as plt
+    >>> data = ((-3, -2.2),
+    ...         (-2, -1),
+    ...         (-1, 1.5),
+    ...         (0, 2),
+    ...         (1, 3.3),
+    ...         (2, 5),
+    ...         (5, 12))
+    >>> x_n = DiscreteTimeSignal(data)
+    >>> print(x_n)
+        x[n]
+    -3  -2.2
+    -2  -1.0
+    -1   1.5
+    0   2.0
+    1   3.3
+    2   5.0
+    5  12.0
     '''
 
     def __init__(self, data=()):
@@ -17,7 +47,8 @@ class DiscreteTimeSignal:
         data : numpy.ndarray
             Two-dimensional array-like representing signal data.
 
-            For e.g., `((0, 2), (1, 4))` indicates `x[0] = 2` and `x[1] = 4`.
+            For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
+            ``x[1] = 4``.
         '''
 
         data_shape = np.shape(data)
@@ -130,7 +161,7 @@ class DiscreteTimeSignal:
 
         Parameters
         ----------
-        sig : DiscreteTimeSignal object
+        sig : DiscreteTimeSignal
             Given discrete-time signal.
 
         Returns
@@ -166,7 +197,7 @@ class DiscreteTimeSignal:
 
         Parameters
         ----------
-        sig : DiscreteTimeSignal object
+        sig : DiscreteTimeSignal
             Given discrete-time signal.
 
         Returns
@@ -191,7 +222,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        result_signal : DiscreteTimeSignal object
+        result_signal : DiscreteTimeSignal
             Resulting discrete-time signal.
         '''
 
@@ -236,7 +267,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        sum_signal : DiscreteTimeSignal object
+        sum_signal : DiscreteTimeSignal
             Summation discrete-time signal.
         '''
 
@@ -254,7 +285,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        sub_signal : DiscreteTimeSignal object
+        sub_signal : DiscreteTimeSignal
             Subtracted discrete-time signal.
         '''
 
@@ -262,7 +293,7 @@ class DiscreteTimeSignal:
 
     def scalar_mul(self, scalar):
         '''
-        Compute scalar multiplication on signal
+        Compute scalar multiplication on signal.
 
         Parameters
         ----------
@@ -271,7 +302,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        scaled_signal : DiscreteTimeSignal object
+        scaled_signal : DiscreteTimeSignal
             Scaled discrete-time signal.
         '''
 
@@ -296,7 +327,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        conv_signal : DiscreteTimeSignal object
+        conv_signal : DiscreteTimeSignal
             Discrete convolution discrete-time signal.
         '''
 
@@ -325,7 +356,7 @@ class DiscreteTimeSignal:
     def __mul__(self, param):
         '''
         Compute scalar multiplication or discrete convolution, depending on
-        parameter type
+        parameter type.
 
         Parameters
         ----------
@@ -334,7 +365,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        signal : DiscreteTimeSignal object
+        signal : DiscreteTimeSignal
             Resulting discrete-time signal.
         '''
 
@@ -355,7 +386,7 @@ class DiscreteTimeSignal:
     def __rmul__(self, param):
         '''
         Compute scalar multiplication or discrete convolution, depending on
-        parameter type (reverse method)
+        parameter type (reverse method).
 
         Parameters
         ----------

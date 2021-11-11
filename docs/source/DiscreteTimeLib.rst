@@ -10,7 +10,8 @@ DiscreteTimeLib.signals module
 .. automodule:: DiscreteTimeLib.signals
    :members:
    :undoc-members:
-   :show-inheritance:
+   :special-members: __add__, __sub__, __mul__
+   :exclude-members: element_wise_operation
 
 DiscreteTimeLib.systems module
 ------------------------------
@@ -18,7 +19,6 @@ DiscreteTimeLib.systems module
 .. automodule:: DiscreteTimeLib.systems
    :members:
    :undoc-members:
-   :show-inheritance:
 
 Module contents
 ---------------
@@ -26,4 +26,3 @@ Module contents
 .. automodule:: DiscreteTimeLib
    :members:
    :undoc-members:
-   :show-inheritance:
