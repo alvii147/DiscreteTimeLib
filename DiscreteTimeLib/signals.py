@@ -87,7 +87,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        signal_string : str
+        str
         '''
 
         return str(self.signal)
@@ -98,7 +98,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        len : int
+        int
         '''
 
         return self.signal.shape[0]
@@ -114,7 +114,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        value : float
+        float
         '''
 
         # access value in dataframe using key
@@ -130,7 +130,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        values : ndarray
+        ndarray
         '''
 
         keys = np.arange(self.min_idx, self.max_idx + 1)
@@ -143,7 +143,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        values : ndarray
+        ndarray
         '''
 
         # fill array with values
@@ -164,7 +164,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        equality : bool
+        bool
             Boolean value indicating equality.
         '''
 
@@ -200,8 +200,8 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        inequality : bool
-            Boolean value indicating equality.
+        bool
+            Boolean value indicating inequality.
         '''
 
         return not self.__eq__(sig)
@@ -220,7 +220,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        result_signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Resulting discrete-time signal.
         '''
 
@@ -265,7 +265,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        sum_signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Summation discrete-time signal.
         '''
 
@@ -283,7 +283,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        sub_signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Subtracted discrete-time signal.
         '''
 
@@ -300,7 +300,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        scaled_signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Scaled discrete-time signal.
         '''
 
@@ -325,7 +325,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        conv_signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Discrete convolution discrete-time signal.
         '''
 
@@ -363,7 +363,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        signal : DiscreteTimeSignal
+        DiscreteTimeSignal
             Resulting discrete-time signal.
         '''
 
@@ -393,7 +393,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        signal : DiscreteTimeSignal object
+        DiscreteTimeSignal object
             Resulting discrete-time signal.
         '''
 

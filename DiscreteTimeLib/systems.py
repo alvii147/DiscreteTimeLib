@@ -21,7 +21,6 @@ class DiscreteTimeSystem:
     b : numpy.ndarray
         One-dimensional array-like representing transfer function
         numerator coefficients.
-
     a : numpy.ndarray
         One-dimensional array-like representing transfer function
         denominator coefficients.
@@ -84,7 +83,7 @@ class DiscreteTimeSystem:
 
         Returns
         -------
-        y_n : DiscreteTimeSignal
+        DiscreteTimeSignal
             Filtered discrete-time signal.
         '''
 
