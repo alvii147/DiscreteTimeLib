@@ -7,32 +7,14 @@
 The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
 ```python
-from DiscreteTimeLib import DiscreteTimeSignal
-import matplotlib.pyplot as plt
-
-if __name__ == '__main__':
-    data = (
-        (-3, -2.2),
-        (-2, -1),
-        (-1, 1.5),
-        (0, 2),
-        (1, 3.3),
-        (2, 5),
-        (5, 12),
-    )
-    sig = DiscreteTimeSignal(data)
-
-    print(sig)
-
-    markerline, stemlines, baseline = plt.stem(sig.keys(), sig.values())
-    plt.setp(markerline, 'markerfacecolor', 'salmon')
-    plt.setp(markerline, 'markeredgecolor', 'firebrick')
-    plt.setp(stemlines, 'color', 'orangered')
-    plt.setp(baseline, 'color', 'red')
-    plt.show()
+>>> from DiscreteTimeLib import DiscreteTimeSignal
+>>> import matplotlib.pyplot as plt
 ```
 
-```
+```python
+>>> data = ((-3, -2.2), (-2, -1), (-1, 1.5), (0, 2), (1, 3.3), (2, 5), (5, 12))
+>>> x_n = DiscreteTimeSignal(data)
+>>> print(x_n)
     x[n]
 -3  -2.2
 -2  -1.0
@@ -43,43 +25,59 @@ if __name__ == '__main__':
  5  12.0
 ```
 
-![Discrete Time Plot](img/discrete_time_plot1.png)
+```python
+>>> markerline, stemlines, baseline = plt.stem(x_n.keys(), x_n.values())
+>>> plt.setp(markerline, 'markerfacecolor', 'salmon')
+>>> plt.setp(markerline, 'markeredgecolor', 'firebrick')
+>>> plt.setp(stemlines, 'color', 'orangered')
+>>> plt.setp(baseline, 'color', 'red')
+>>> plt.show()
+```
+
+![Discrete Time Signal Plot](img/discrete_time_signal_plot.png)
+
+`DiscreteTimeSignal` supports various operations, including **convolution**:
+
+```python
+>>> data = ((-1, 2), (0, 2.5), (1, 2.1))
+>>> y_n = DiscreteTimeSignal(data)
+>>> conv = x_n * y_n
+>>> print(conv)
+     x[n]
+-4  -4.40
+-3  -7.50
+-2  -4.12
+-1   5.65
+ 0  14.75
+ 1  22.45
+ 2  19.43
+ 3  10.50
+ 4  24.00
+ 5  30.00
+ 6  25.20
+```
+
+```python
+>>> markerline, stemlines, baseline = plt.stem(conv.keys(), conv.values())
+>>> plt.setp(markerline, 'markerfacecolor', 'salmon')
+>>> plt.setp(markerline, 'markeredgecolor', 'firebrick')
+>>> plt.setp(stemlines, 'color', 'orangered')
+>>> plt.setp(baseline, 'color', 'red')
+>>> plt.show()
+```
+
+![Convolution Plot](img/convolution_plot.png)
 
 The `DiscreteTimeSystem` class can be used to model a discrete-time system and apply the system filter on a signal:
 
 ```python
-from DiscreteTimeLib import DiscreteTimeSignal, DiscreteTimeSystem
-import matplotlib.pyplot as plt
-
-if __name__ == '__main__':
-    data = (
-        (-3, -2.2),
-        (-2, -1),
-        (-1, 1.5),
-        (0, 2),
-        (1, 3.3),
-        (2, 5),
-        (5, 12),
-    )
-    sig = DiscreteTimeSignal(data)
-
-    H = DiscreteTimeSystem([1], [1, -1])
-    filtered_sig = H.filter(sig)
-
-    print(filtered_sig)
-
-    markerline, stemlines, baseline = plt.stem(
-        filtered_sig.keys(),
-        filtered_sig.values(),
-    )
-    plt.setp(markerline, 'markerfacecolor', 'salmon')
-    plt.setp(markerline, 'markeredgecolor', 'firebrick')
-    plt.setp(stemlines, 'color', 'orangered')
-    plt.setp(baseline, 'color', 'red')
-    plt.show()
+>>> from DiscreteTimeLib import DiscreteTimeSystem
 ```
 
-```
+```python
+>>> H = DiscreteTimeSystem([1], [1, -1])
+>>> y_n = H.filter(x_n)
+>>> print(y_n)
     x[n]
 -3  -2.2
 -2  -3.2
@@ -92,7 +90,16 @@ if __name__ == '__main__':
  5  20.6
 ```
 
-![Discrete Time Plot](img/discrete_time_plot2.png)
+```python
+>>> markerline, stemlines, baseline = plt.stem(y_n.keys(), y_n.values())
+>>> plt.setp(markerline, 'markerfacecolor', 'salmon')
+>>> plt.setp(markerline, 'markeredgecolor', 'firebrick')
+>>> plt.setp(stemlines, 'color', 'orangered')
+>>> plt.setp(baseline, 'color', 'red')
+>>> plt.show()
+```
+
+![Filtered Signal Plot](img/filtered_signal_plot.png)
 
 ## Installation
 
