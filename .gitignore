@@ -25,3 +25,4 @@ docs/build/html/*
 !docs/build/html/*.scss
 !docs/build/html/*.js
 !docs/build/html/*.png
+!docs/build/html/.nojekyll
