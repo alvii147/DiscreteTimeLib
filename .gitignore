@@ -2,7 +2,7 @@
 *.egg
 *.egg-info
 dist
-build
+build/*
 eggs
 parts
 bin
@@ -16,3 +16,12 @@ __pycache__
 *env
 .coverage
 .pytest_cache
+
+!docs/build/html/*
+docs/build/html/*
+!docs/build/html/_static/
+!docs/build/html/*.html
+!docs/build/html/*.css
+!docs/build/html/*.scss
+!docs/build/html/*.js
+!docs/build/html/*.png
