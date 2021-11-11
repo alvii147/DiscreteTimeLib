@@ -4,4 +4,5 @@ DiscreteTimeLib
 .. toctree::
    :maxdepth: 4
 
-   DiscreteTimeLib
+   signals
+   systems
