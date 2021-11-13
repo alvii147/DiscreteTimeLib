@@ -88,6 +88,7 @@ class DiscreteTimeSignal:
         Returns
         -------
         str
+            String representation.
         '''
 
         return str(self.signal)
@@ -99,6 +100,7 @@ class DiscreteTimeSignal:
         Returns
         -------
         int
+            Length of signal.
         '''
 
         return self.signal.shape[0]
@@ -115,6 +117,7 @@ class DiscreteTimeSignal:
         Returns
         -------
         float
+            Value at index.
         '''
 
         # access value in dataframe using key
@@ -131,6 +134,7 @@ class DiscreteTimeSignal:
         Returns
         -------
         ndarray
+            Signal keys array.
         '''
 
         keys = np.arange(self.min_idx, self.max_idx + 1)
@@ -144,6 +148,7 @@ class DiscreteTimeSignal:
         Returns
         -------
         ndarray
+            Signal values array.
         '''
 
         # fill array with values
