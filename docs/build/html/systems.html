@@ -184,9 +184,9 @@ the transfer function of the system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>b</strong> (<em>numpy.ndarray</em>) – One-dimensional array-like representing transfer function
+<li><p><strong>b</strong> (<em>ndarray</em>) – One-dimensional array-like representing transfer function
 numerator coefficients.</p></li>
-<li><p><strong>a</strong> (<em>numpy.ndarray</em>) – One-dimensional array-like representing transfer function
+<li><p><strong>a</strong> (<em>ndarray</em>) – One-dimensional array-like representing transfer function
 denominator coefficients.</p></li>
 </ul>
 </dd>
@@ -204,6 +204,26 @@ denominator coefficients.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="signals.html#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal">DiscreteTimeSignal</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.iztrans">
+<span class="sig-name descname"><span class="pre">iztrans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.iztrans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute z-transform of system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n_range</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Range of indices to compute z-transform for. For e.g. set
+<code class="docutils literal notranslate"><span class="pre">n_range</span> <span class="pre">=</span> <span class="pre">[-1,</span> <span class="pre">3]</span></code> to compute from <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">-1`</span> <span class="pre">to</span> <span class="pre">``n</span> <span class="pre">=</span> <span class="pre">2</span></code>
+inclusive.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Z-transform of the system, computed as an array if <code class="docutils literal notranslate"><span class="pre">n_range</span></code>
+is given, computed as a sympy expression otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray or sympy expression</p>
 </dd>
 </dl>
 </dd></dl>
