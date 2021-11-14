@@ -382,7 +382,7 @@ class DiscreteTimeSignal:
         else:
             err_msg = f'Unknown type {type(param)}.'
             err_msg += 'Use scalar for scalar multiplication '
-            err_msg += 'or DiscreteTimeSignal object for convolution.'
+            err_msg += 'or DiscreteTimeSignal object for convolution'
 
             raise TypeError(err_msg)
 
