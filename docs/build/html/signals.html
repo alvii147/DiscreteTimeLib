@@ -173,15 +173,18 @@
 <span id="discretetimelib-signals"></span><h1>DiscreteTimeLib.signals<a class="headerlink" href="#module-DiscreteTimeLib.signals" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="DiscreteTimeLib.signals.DiscreteTimeSignal">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DiscreteTimeLib.signals.</span></span><span class="sig-name descname"><span class="pre">DiscreteTimeSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DiscreteTimeLib.signals.</span></span><span class="sig-name descname"><span class="pre">DiscreteTimeSignal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Discrete-time signal object, implemented with digital signal processing
 functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>numpy.ndarray</em>) – <p>Two-dimensional array-like representing signal data.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ndarray</em>) – <p>Two-dimensional array-like representing signal data.</p>
 <p>For e.g., <code class="docutils literal notranslate"><span class="pre">((0,</span> <span class="pre">2),</span> <span class="pre">(1,</span> <span class="pre">4))</span></code> indicates <code class="docutils literal notranslate"><span class="pre">x[0]</span> <span class="pre">=</span> <span class="pre">2</span></code> and
 <code class="docutils literal notranslate"><span class="pre">x[1]</span> <span class="pre">=</span> <span class="pre">4</span></code>.</p>
-</p>
+</p></li>
+<li><p><strong>dtype</strong> (<em>float</em><em>, </em><em>optional</em>) – Data type of signal values.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>

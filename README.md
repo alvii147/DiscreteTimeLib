@@ -4,6 +4,8 @@
 
 ## Overview
 
+### Discrete Time Signals
+
 The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
 ```python
@@ -12,17 +14,14 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 ```
 
 ```python
->>> data = ((-3, -2.2), (-2, -1), (-1, 1.5), (0, 2), (1, 3.3), (2, 5), (5, 12))
+>>> data = ((-1, -2), (0, 1), (1, 2.5), (4, 4))
 >>> x_n = DiscreteTimeSignal(data)
 >>> print(x_n)
     x[n]
--3  -2.2
--2  -1.0
--1   1.5
- 0   2.0
- 1   3.3
- 2   5.0
- 5  12.0
+-1  -2.0
+ 0   1.0
+ 1   2.5
+ 4   4.0
 ```
 
 ```python
@@ -36,25 +35,24 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
 ![Discrete Time Signal Plot](img/discrete_time_signal_plot.png)
 
+### Convolution
+
 `DiscreteTimeSignal` supports various operations, including **convolution**:
 
 ```python
 >>> data = ((-1, 2), (0, 2.5), (1, 2.1))
->>> y_n = DiscreteTimeSignal(data)
->>> conv = x_n * y_n
->>> print(conv)
+>>> h_n = DiscreteTimeSignal(data)
+>>> y_n = h_n * x_n
+>>> print(y_n)
      x[n]
--4  -4.40
--3  -7.50
--2  -4.12
--1   5.65
- 0  14.75
- 1  22.45
- 2  19.43
- 3  10.50
- 4  24.00
- 5  30.00
- 6  25.20
+-2  -4.00
+-1  -3.00
+ 0   3.30
+ 1   8.35
+ 2   5.25
+ 3   8.00
+ 4  10.00
+ 5   8.40
 ```
 
 ```python
@@ -68,6 +66,8 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
 ![Convolution Plot](img/convolution_plot.png)
 
+### Filtering
+
 The `DiscreteTimeSystem` class can be used to model a discrete-time system and apply the system filter on a signal:
 
 ```python
@@ -79,15 +79,12 @@ The `DiscreteTimeSystem` class can be used to model a discrete-time system and a
 >>> y_n = H.filter(x_n)
 >>> print(y_n)
     x[n]
--3  -2.2
--2  -3.2
--1  -1.7
- 0   0.3
- 1   3.6
- 2   8.6
- 3   8.6
- 4   8.6
- 5  20.6
+-1  -2.0
+ 0  -1.0
+ 1   1.5
+ 2   1.5
+ 3   1.5
+ 4   5.5
 ```
 
 ```python
@@ -100,6 +97,16 @@ The `DiscreteTimeSystem` class can be used to model a discrete-time system and a
 ```
 
 ![Filtered Signal Plot](img/filtered_signal_plot.png)
+
+### Inverse z-transforms
+
+The `DiscreteTimeSystem` class can also compute the inverse z-transform in the form of a [Sympy](https://www.sympy.org/) expression:
+
+```python
+>>> h_n, n = H.iztrans()
+>>> print(h_n)
+1.0*Heaviside(n, 1)
+```
 
 ## Installation
 
