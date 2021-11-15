@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 import numpy.testing as npt
 from DiscreteTimeLib import DiscreteTimeSystem
+from DiscreteTimeLib.signals import DiscreteTimeSignal
 
 from .utils import generate_random_system, generate_random_dts
 
@@ -46,16 +47,40 @@ def test_DiscreteTimeSystem_filter(execution_id):
 
         npt.assert_allclose(y_n[n], y_expected)
 
-def test_DiscreteTimeSystem_iztrans_exp_equals_numeric():
+def test_DiscreteTimeSystem_n_range_error():
+    b, a = generate_random_system()
+    n_range = (16,)
+
+    H = DiscreteTimeSystem(b, a)
+    with pytest.raises(ValueError):
+        H.iztrans(n_range=n_range)
+
+def test_DiscreteTimeSystem_iztrans_exp_equals_num():
     b, a = generate_random_system()
     n_range=(0, 10)
 
     H = DiscreteTimeSystem(b, a)
     h_exp, n = H.iztrans()
-    h_num = H.iztrans(n_range=n_range)
+    h_n = H.iztrans(n_range=n_range)
 
     for i in range(*n_range):
         npt.assert_almost_equal(
             np.clongdouble(h_exp.subs(n, i)),
-            np.clongdouble(h_num[i]),
+            np.clongdouble(h_n[i]),
         )
+
+@pytest.mark.parametrize(
+    'b, a, h, n_range',
+    [((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),],
+)
+def test_DiscreteTimeSystem_iztrans_num(b, a, h, n_range):
+    H = DiscreteTimeSystem(b, a)
+    h_n = H.iztrans(n_range=n_range)
+
+    data = ()
+    for n in range(*n_range):
+        data += ((n, h[n]),)
+
+    h_expected = DiscreteTimeSignal(data)
+
+    assert h_n == h_expected
