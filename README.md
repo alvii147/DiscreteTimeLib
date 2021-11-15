@@ -4,7 +4,7 @@
 
 ## Overview
 
-### Discrete Time Signals
+### Discrete-Time Signals
 
 The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
@@ -100,7 +100,7 @@ The `DiscreteTimeSystem` class can be used to model a discrete-time system and a
 
 ### Inverse z-transforms
 
-The `DiscreteTimeSystem` class can also compute the inverse z-transform in the form of a [Sympy](https://www.sympy.org/) expression:
+The `DiscreteTimeSystem` class can also compute the **inverse z-transform** in the form of a [Sympy](https://www.sympy.org/) expression:
 
 ```python
 >>> h_n, n = H.iztrans()
