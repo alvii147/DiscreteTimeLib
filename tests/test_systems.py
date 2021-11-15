@@ -45,3 +45,17 @@ def test_DiscreteTimeSystem_filter(execution_id):
         y_expected = y_expected / a[0]
 
         npt.assert_allclose(y_n[n], y_expected)
+
+def test_DiscreteTimeSystem_iztrans_exp_equals_numeric():
+    b, a = generate_random_system()
+    n_range=(0, 10)
+
+    H = DiscreteTimeSystem(b, a)
+    h_exp, n = H.iztrans()
+    h_num = H.iztrans(n_range=n_range)
+
+    for i in range(*n_range):
+        npt.assert_almost_equal(
+            np.clongdouble(h_exp.subs(n, i)),
+            np.clongdouble(h_num[i]),
+        )

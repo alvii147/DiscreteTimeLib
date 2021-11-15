@@ -9,11 +9,14 @@ class DiscreteTimeSignal:
 
     Parameters
     ----------
-    data : numpy.ndarray
+    data : ndarray
         Two-dimensional array-like representing signal data.
 
         For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
         ``x[1] = 4``.
+
+    dtype : float, optional
+        Data type of signal values.
 
     Examples
     --------
@@ -36,17 +39,20 @@ class DiscreteTimeSignal:
     5  12.0
     '''
 
-    def __init__(self, data=()):
+    def __init__(self, data=(), dtype=np.float64):
         '''
         Initializer for discrete-time signal object.
 
         Parameters
         ----------
-        data : numpy.ndarray
+        data : ndarray
             Two-dimensional array-like representing signal data.
 
             For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
             ``x[1] = 4``.
+
+        dtype : float, optional
+            Data type of signal values.
         '''
 
         data_shape = np.shape(data)
@@ -61,7 +67,8 @@ class DiscreteTimeSignal:
         # discrete signal indices
         keys = np.zeros(data_shape[0], dtype=np.int64)
         # discrete signal values
-        values = np.zeros(data_shape[0], dtype=np.float64)
+        self.dtype = dtype
+        values = np.zeros(data_shape[0], dtype=self.dtype)
         # lowest index with non-zero value
         self.min_idx = float('inf')
         # highest index with non-zero value
@@ -152,7 +159,10 @@ class DiscreteTimeSignal:
         '''
 
         # fill array with values
-        values = np.zeros(self.max_idx - self.min_idx + 1, dtype=np.float64)
+        values = np.zeros(
+            self.max_idx - self.min_idx + 1,
+            dtype=self.dtype,
+        )
         for n in range(self.min_idx, self.max_idx + 1):
             values[n - self.min_idx] = self[n]
 
@@ -254,7 +264,10 @@ class DiscreteTimeSignal:
                 data += ((n, self[n] - sig[n]),)
 
         # create new discrete-time signal object using data
-        result_signal = DiscreteTimeSignal(data)
+        result_signal = DiscreteTimeSignal(
+            data,
+            dtype=np.result_type(self.dtype, sig.dtype),
+        )
 
         return result_signal
 
@@ -314,7 +327,10 @@ class DiscreteTimeSignal:
             data += ((n, self[n] * scalar),)
 
         # create new discrete-time signal object using data
-        scaled_signal = DiscreteTimeSignal(data)
+        scaled_signal = DiscreteTimeSignal(
+            data,
+            dtype=np.result_type(self.dtype, type(scalar)),
+        )
 
         return scaled_signal
 
@@ -352,7 +368,10 @@ class DiscreteTimeSignal:
         for n in range(conv_min_idx, conv_max_idx + 1):
             data += ((n, conv[n - conv_min_idx]),)
 
-        conv_signal = DiscreteTimeSignal(data)
+        conv_signal = DiscreteTimeSignal(
+            data,
+            dtype=np.result_type(self.dtype, sig.dtype),
+        )
 
         return conv_signal
 

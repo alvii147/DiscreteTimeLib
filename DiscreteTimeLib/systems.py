@@ -97,7 +97,10 @@ class DiscreteTimeSystem:
         for n in range(sig.min_idx, sig.max_idx + 1):
             data += ((n, y_values[n - sig.min_idx]),)
 
-        y_n = DiscreteTimeSignal(data)
+        y_n = DiscreteTimeSignal(
+            data,
+            dtype=y_values.dtype,
+        )
 
         return y_n
 
@@ -109,14 +112,18 @@ class DiscreteTimeSystem:
         ----------
         n_range : ndarray, optional
             Range of indices to compute z-transform for. For e.g. set
-            ``n_range = [-1, 3]`` to compute from ``n = -1` to ``n = 2``
+            ``n_range = [-1, 3]`` to compute from ``n = -1`` to ``n = 2``
             inclusive.
 
         Returns
         -------
-        ndarray or sympy expression
+        iztrans : ndarray or sympy expression
             Z-transform of the system, computed as an array if ``n_range``
             is given, computed as a sympy expression otherwise.
+
+        n : sympy Symbol
+            Symbolic variable used to create sympy expression. This is only
+            returned if ``n_range`` is not given.
         '''
 
         numeric_answer = False
@@ -145,10 +152,19 @@ class DiscreteTimeSystem:
             # compute inverse z-transform values for n_range
             data = ()
             for n_idx in range(*n_range):
-                data += ((n_idx, iztrans_exp.subs(n, n_idx)),)
+                val = iztrans_exp.subs(n, n_idx)
+                try:
+                    val = np.float64(iztrans_exp.subs(n, n_idx))
+                except TypeError:
+                    val = np.clongdouble(iztrans_exp.subs(n, n_idx))
 
-            iztrans_num = DiscreteTimeSignal(data)
+                data += ((n_idx, val),)
+
+            iztrans_num = DiscreteTimeSignal(
+                data,
+                dtype=np.array(data).dtype,
+            )
 
             return iztrans_num
 
-        return iztrans_exp
+        return iztrans_exp, n
