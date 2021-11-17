@@ -56,7 +56,7 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 ```
 
 ```python
->>> markerline, stemlines, baseline = plt.stem(conv.keys(), conv.values())
+>>> markerline, stemlines, baseline = plt.stem(y_n.keys(), y_n.values())
 >>> plt.setp(markerline, 'markerfacecolor', 'salmon')
 >>> plt.setp(markerline, 'markeredgecolor', 'firebrick')
 >>> plt.setp(stemlines, 'color', 'orangered')
