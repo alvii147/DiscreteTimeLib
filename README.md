@@ -10,18 +10,30 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 
 ```python
 >>> from DiscreteTimeLib import DiscreteTimeSignal
+>>> import numpy as np
 >>> import matplotlib.pyplot as plt
 ```
 
 ```python
->>> data = ((-1, -2), (0, 1), (1, 2.5), (4, 4))
+>>> data = [
+...     (n, np.sin(x)) for n, x in enumerate(np.linspace(0, 2 * np.pi, num=100))
+... ]
 >>> x_n = DiscreteTimeSignal(data)
 >>> print(x_n)
-    x[n]
--1  -2.0
- 0   1.0
- 1   2.5
- 4   4.0
+            x[n]
+0   0.000000e+00
+1   6.342392e-02
+2   1.265925e-01
+3   1.892512e-01
+4   2.511480e-01
+..           ...
+95 -2.511480e-01
+96 -1.892512e-01
+97 -1.265925e-01
+98 -6.342392e-02
+99 -2.449294e-16
+
+[100 rows x 1 columns]
 ```
 
 ```python
@@ -40,19 +52,26 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 `DiscreteTimeSignal` supports various operations, including **convolution**:
 
 ```python
->>> data = ((-1, 2), (0, 2.5), (1, 2.1))
+>>> data = [
+...     (n, np.cos(x)) for n, x in enumerate(np.linspace(0, 2 * np.pi, num=100))
+... ]
 >>> h_n = DiscreteTimeSignal(data)
 >>> y_n = h_n * x_n
 >>> print(y_n)
-     x[n]
--2  -4.00
--1  -3.00
- 0   3.30
- 1   8.35
- 2   5.25
- 3   8.00
- 4  10.00
- 5   8.40
+             x[n]
+0    0.000000e+00
+1    6.342392e-02
+2    1.898887e-01
+3    3.785025e-01
+4    6.278700e-01
+..            ...
+194 -6.278700e-01
+195 -3.785025e-01
+196 -1.898887e-01
+197 -6.342392e-02
+198 -2.449294e-16
+
+[199 rows x 1 columns]
 ```
 
 ```python
@@ -75,16 +94,25 @@ The `DiscreteTimeSystem` class can be used to model a discrete-time system and a
 ```
 
 ```python
->>> H = DiscreteTimeSystem([1], [1, -1])
+>>> b = (1,)
+>>> a = (1, -1)
+>>> H = DiscreteTimeSystem(b, a)
 >>> y_n = H.filter(x_n)
 >>> print(y_n)
-    x[n]
--1  -2.0
- 0  -1.0
- 1   1.5
- 2   1.5
- 3   1.5
- 4   5.5
+            x[n]
+0   0.000000e+00
+1   6.342392e-02
+2   1.900164e-01
+3   3.792676e-01
+4   6.304156e-01
+..           ...
+95  3.792676e-01
+96  1.900164e-01
+97  6.342392e-02
+98  1.665335e-15
+99  1.420405e-15
+
+[100 rows x 1 columns]
 ```
 
 ```python

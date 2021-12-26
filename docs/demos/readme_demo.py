@@ -1,7 +1,10 @@
 from DiscreteTimeLib import DiscreteTimeSignal
+import numpy as np
 import matplotlib.pyplot as plt
 
-data = ((-1, -2), (0, 1), (1, 2.5), (4, 4))
+data = [
+    (n, np.sin(x)) for n, x in enumerate(np.linspace(0, 2 * np.pi, num=100))
+]
 x_n = DiscreteTimeSignal(data)
 print(x_n)
 
@@ -12,7 +15,9 @@ plt.setp(stemlines, 'color', 'orangered')
 plt.setp(baseline, 'color', 'red')
 plt.show()
 
-data = ((-1, 2), (0, 2.5), (1, 2.1))
+data = [
+    (n, np.cos(x)) for n, x in enumerate(np.linspace(0, 2 * np.pi, num=100))
+]
 h_n = DiscreteTimeSignal(data)
 y_n = h_n * x_n
 print(y_n)
