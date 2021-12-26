@@ -179,7 +179,7 @@ functions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>ndarray</em>) – <p>Two-dimensional array-like representing signal data.</p>
+<li><p><strong>data</strong> (<em>array-like</em>) – <p>Two-dimensional array representing signal data.</p>
 <p>For e.g., <code class="docutils literal notranslate"><span class="pre">((0,</span> <span class="pre">2),</span> <span class="pre">(1,</span> <span class="pre">4))</span></code> indicates <code class="docutils literal notranslate"><span class="pre">x[0]</span> <span class="pre">=</span> <span class="pre">2</span></code> and
 <code class="docutils literal notranslate"><span class="pre">x[1]</span> <span class="pre">=</span> <span class="pre">4</span></code>.</p>
 </p></li>
@@ -246,8 +246,8 @@ parameter type.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="DiscreteTimeLib.signals.DiscreteTimeSignal.__sub__">
 <span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.signals.DiscreteTimeSignal.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Subtract adjacent elements between this and given discrete-time
-signal objects.</p>
+<dd><p>Subtract adjacent elements between this and given discrete-time signal
+objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sig</strong> (<a class="reference internal" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal"><em>DiscreteTimeSignal</em></a>) – Given discrete-time signal.</p>
@@ -271,7 +271,7 @@ signal objects.</p>
 <dd class="field-odd"><p><strong>sig</strong> (<a class="reference internal" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal"><em>DiscreteTimeSignal</em></a>) – Given discrete-time signal.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Discrete convolution discrete-time signal.</p>
+<dd class="field-even"><p><strong>conv_signal</strong> – Discrete convolution discrete-time signal.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal">DiscreteTimeSignal</a></p>
@@ -288,7 +288,7 @@ signal objects.</p>
 <dd class="field-odd"><p>Signal keys array.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>ndarray</p>
+<dd class="field-even"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -302,7 +302,7 @@ signal objects.</p>
 <dd class="field-odd"><p><strong>scalar</strong> (<em>int</em>) – Given scalar value.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Scaled discrete-time signal.</p>
+<dd class="field-even"><p><strong>scaled_signal</strong> – Scaled discrete-time signal.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal">DiscreteTimeSignal</a></p>
@@ -316,10 +316,10 @@ signal objects.</p>
 <dd><p>Fetch all signal values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Signal values array.</p>
+<dd class="field-odd"><p><strong>values</strong> – Signal values array.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>ndarray</p>
+<dd class="field-even"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
