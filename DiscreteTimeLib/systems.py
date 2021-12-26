@@ -9,8 +9,8 @@ class DiscreteTimeSystem:
     '''
     Discrete-time system object, implemented as a digital filter.
 
-    Parameters `b` and `a` are numerator and denominator coefficients for
-    the transfer function of the system.
+    Parameters `b` and `a` are numerator and denominator coefficients for the
+    transfer function of the system.
 
     .. math::
         H(z) =
@@ -19,12 +19,12 @@ class DiscreteTimeSystem:
 
     Parameters
     ----------
-    b : ndarray
-        One-dimensional array-like representing transfer function
-        numerator coefficients.
-    a : ndarray
-        One-dimensional array-like representing transfer function
-        denominator coefficients.
+    b : array-like
+        One-dimensional array-like representing transfer function numerator
+        coefficients.
+    a : array-like
+        One-dimensional array-like representing transfer function denominator
+        coefficients.
     '''
 
     def __init__(self, b, a):
@@ -33,11 +33,11 @@ class DiscreteTimeSystem:
 
         Parameters
         ----------
-        b : ndarray
-            One-dimensional array-like representing transfer function
-            numerator coefficients.
+        b : array-like
+            One-dimensional array-like representing transfer function numerator
+            coefficients.
 
-        a : ndarray
+        a : array-like
             One-dimensional array-like representing transfer function
             denominator coefficients.
         '''
@@ -84,7 +84,7 @@ class DiscreteTimeSystem:
 
         Returns
         -------
-        DiscreteTimeSignal
+        y_n : DiscreteTimeSignal
             Filtered discrete-time signal.
         '''
 
@@ -118,8 +118,8 @@ class DiscreteTimeSystem:
         Returns
         -------
         iztrans : ndarray or sympy expression
-            Z-transform of the system, computed as an array if ``n_range``
-            is given, computed as a sympy expression otherwise.
+            Z-transform of the system, computed as an array if ``n_range`` is
+            given, computed as a sympy expression otherwise.
 
         n : sympy Symbol
             Symbolic variable used to create sympy expression. This is only

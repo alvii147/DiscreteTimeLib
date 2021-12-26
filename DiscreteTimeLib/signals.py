@@ -9,8 +9,8 @@ class DiscreteTimeSignal:
 
     Parameters
     ----------
-    data : ndarray
-        Two-dimensional array-like representing signal data.
+    data : array-like
+        Two-dimensional array representing signal data.
 
         For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
         ``x[1] = 4``.
@@ -45,8 +45,8 @@ class DiscreteTimeSignal:
 
         Parameters
         ----------
-        data : ndarray
-            Two-dimensional array-like representing signal data.
+        data : array-like
+            Two-dimensional array representing signal data.
 
             For e.g., ``((0, 2), (1, 4))`` indicates ``x[0] = 2`` and
             ``x[1] = 4``.
@@ -140,13 +140,11 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        ndarray
+        numpy.ndarray
             Signal keys array.
         '''
 
-        keys = np.arange(self.min_idx, self.max_idx + 1)
-
-        return keys
+        return np.arange(self.min_idx, self.max_idx + 1)
 
     def values(self):
         '''
@@ -154,7 +152,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        ndarray
+        values : numpy.ndarray
             Signal values array.
         '''
 
@@ -231,11 +229,12 @@ class DiscreteTimeSignal:
         sig : DiscreteTimeSignal
             Given discrete-time signal.
 
-        op : Operation to perform ('add'/'sub')
+        op : str
+            Operation to perform ('add'/'sub')
 
         Returns
         -------
-        DiscreteTimeSignal
+        result_signal : DiscreteTimeSignal
             Resulting discrete-time signal.
         '''
 
@@ -291,8 +290,8 @@ class DiscreteTimeSignal:
 
     def __sub__(self, sig):
         '''
-        Subtract adjacent elements between this and given discrete-time
-        signal objects.
+        Subtract adjacent elements between this and given discrete-time signal
+        objects.
 
         Parameters
         ----------
@@ -318,7 +317,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        DiscreteTimeSignal
+        scaled_signal : DiscreteTimeSignal
             Scaled discrete-time signal.
         '''
 
@@ -346,7 +345,7 @@ class DiscreteTimeSignal:
 
         Returns
         -------
-        DiscreteTimeSignal
+        conv_signal : DiscreteTimeSignal
             Discrete convolution discrete-time signal.
         '''
 
