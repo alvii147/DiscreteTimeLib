@@ -110,16 +110,16 @@ class DiscreteTimeSystem:
 
         Parameters
         ----------
-        n_range : ndarray, optional
+        n_range : array-like, optional
             Range of indices to compute z-transform for. For e.g. set
             ``n_range = [-1, 3]`` to compute from ``n = -1`` to ``n = 2``
             inclusive.
 
         Returns
         -------
-        iztrans : ndarray or sympy expression
-            Z-transform of the system, computed as an array if ``n_range`` is
-            given, computed as a sympy expression otherwise.
+        iztrans : DiscreteTimeSignal or sympy expression
+            Z-transform of the system, computed as a signal if ``n_range`` is
+            given, otherwise computed as a sympy expression.
 
         n : sympy Symbol
             Symbolic variable used to create sympy expression. This is only
@@ -168,3 +168,24 @@ class DiscreteTimeSystem:
             return iztrans_num
 
         return iztrans_exp, n
+
+    def impz(self, n_range):
+        '''
+        Compute impulse response of system.
+
+        Parameters
+        ----------
+        n_range : array-like, optional
+            Range of indices to compute impulse response for. For e.g. set
+            ``n_range = [-1, 3]`` to compute from ``n = -1`` to ``n = 2``
+            inclusive.
+
+        Returns
+        -------
+        impulse_response : DiscreteTimeSignal
+            Impulse response signal of system.
+        '''
+
+        impulse_response = self.iztrans(n_range=n_range)
+
+        return impulse_response
