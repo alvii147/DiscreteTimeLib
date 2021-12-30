@@ -47,7 +47,7 @@ def test_DiscreteTimeSystem_filter(execution_id):
 
         npt.assert_allclose(y_n[n], y_expected)
 
-def test_DiscreteTimeSystem_n_range_error():
+def test_DiscreteTimeSystem_iztrans_n_range_error():
     b, a = generate_random_system()
     n_range = (16,)
 
@@ -71,7 +71,11 @@ def test_DiscreteTimeSystem_iztrans_exp_equals_num():
 
 @pytest.mark.parametrize(
     'b, a, h, n_range',
-    [((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),],
+    [
+        ((1,), (1,), (1, 0, 0, 0), (0, 4)),
+        ((0, 1), (1, -2), (0, 1, 2, 4), (0, 4)),
+        ((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),
+    ],
 )
 def test_DiscreteTimeSystem_iztrans_num(b, a, h, n_range):
     H = DiscreteTimeSystem(b, a)
