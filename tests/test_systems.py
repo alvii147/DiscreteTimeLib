@@ -77,9 +77,10 @@ def test_DiscreteTimeSystem_iztrans_exp_equals_num():
         ((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),
     ],
 )
-def test_DiscreteTimeSystem_iztrans_num(b, a, h, n_range):
+def test_DiscreteTimeSystem_iztrans_impz_num(b, a, h, n_range):
     H = DiscreteTimeSystem(b, a)
-    h_n = H.iztrans(n_range=n_range)
+    h_n_iztrans = H.iztrans(n_range=n_range)
+    h_n_impz = H.impz(n_range=n_range)
 
     data = ()
     for n in range(*n_range):
@@ -87,4 +88,6 @@ def test_DiscreteTimeSystem_iztrans_num(b, a, h, n_range):
 
     h_expected = DiscreteTimeSignal(data)
 
-    assert h_n == h_expected
+    assert h_n_iztrans == h_expected
+
+    assert h_n_impz == h_expected
