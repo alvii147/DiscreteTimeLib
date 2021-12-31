@@ -209,19 +209,38 @@ coefficients.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.impz">
+<span class="sig-name descname"><span class="pre">impz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_range</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.impz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute impulse response of system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n_range</strong> (<em>array-like</em><em>, </em><em>optional</em>) – Range of indices to compute impulse response for. For e.g. set
+<code class="docutils literal notranslate"><span class="pre">n_range</span> <span class="pre">=</span> <span class="pre">[-1,</span> <span class="pre">3]</span></code> to compute from <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">-1</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">2</span></code>
+inclusive.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>impulse_response</strong> – Impulse response signal of system.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="signals.html#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal">DiscreteTimeSignal</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.iztrans">
 <span class="sig-name descname"><span class="pre">iztrans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.iztrans" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute z-transform of system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n_range</strong> (<em>ndarray</em><em>, </em><em>optional</em>) – Range of indices to compute z-transform for. For e.g. set
+<dd class="field-odd"><p><strong>n_range</strong> (<em>array-like</em><em>, </em><em>optional</em>) – Range of indices to compute z-transform for. For e.g. set
 <code class="docutils literal notranslate"><span class="pre">n_range</span> <span class="pre">=</span> <span class="pre">[-1,</span> <span class="pre">3]</span></code> to compute from <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">-1</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">2</span></code>
 inclusive.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>iztrans</strong> (<em>ndarray or sympy expression</em>) – Z-transform of the system, computed as an array if <code class="docutils literal notranslate"><span class="pre">n_range</span></code> is
-given, computed as a sympy expression otherwise.</p></li>
+<li><p><strong>iztrans</strong> (<em>DiscreteTimeSignal or sympy expression</em>) – Z-transform of the system, computed as a signal if <code class="docutils literal notranslate"><span class="pre">n_range</span></code> is
+given, otherwise computed as a sympy expression.</p></li>
 <li><p><strong>n</strong> (<em>sympy Symbol</em>) – Symbolic variable used to create sympy expression. This is only
 returned if <code class="docutils literal notranslate"><span class="pre">n_range</span></code> is not given.</p></li>
 </ul>
