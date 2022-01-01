@@ -106,27 +106,18 @@ class DiscreteTimeSystem:
 
     def iztrans(self):
         '''
-        Compute z-transform of system.
-
-        Parameters
-        ----------
-        n_range : array-like, optional
-            Range of indices to compute z-transform for. For e.g. set
-            ``n_range = [-1, 3]`` to compute from ``n = -1`` to ``n = 2``
-            inclusive.
+        Compute inverse z-transform of system.
 
         Returns
         -------
-        iztrans : DiscreteTimeSignal or sympy expression
-            Z-transform of the system, computed as a signal if ``n_range`` is
-            given, otherwise computed as a sympy expression.
+        exp : sympy.core.expr.Expr
+            Z-transform of the system, computed as a sympy expression.
 
-        n : sympy Symbol
-            Symbolic variable used to create sympy expression. This is only
-            returned if ``n_range`` is not given.
+        n : sympy.core.symbol.Symbol
+            Symbolic variable used to create sympy expression.
         '''
 
-        iztrans_exp = 0
+        exp = 0
         # get partial fraction decomposition
         r, p, k = residuez(self.b, self.a)
 
@@ -134,12 +125,12 @@ class DiscreteTimeSystem:
         n = Symbol('n')
         for i in range(max(np.shape(r)[0], np.shape(p)[0])):
             p_coeff = p[i] if p[i] == 1.0 else p[i] ** n
-            iztrans_exp += r[i] * p_coeff * Heaviside(n, 1)
+            exp += r[i] * p_coeff * Heaviside(n, 1)
 
         for i in range(np.shape(k)[0]):
-            iztrans_exp += k[i] * KroneckerDelta(n - i, 0)
+            exp += k[i] * KroneckerDelta(n - i, 0)
 
-        return iztrans_exp, n
+        return exp, n
 
     def impz(self, n_range):
         '''
@@ -154,7 +145,7 @@ class DiscreteTimeSystem:
 
         Returns
         -------
-        impulse_response : DiscreteTimeSignal
+        response : DiscreteTimeSignal
             Impulse response signal of system.
         '''
 
@@ -176,9 +167,9 @@ class DiscreteTimeSystem:
 
             data += ((n_idx, val),)
 
-        iztrans_num = DiscreteTimeSignal(
+        response = DiscreteTimeSignal(
             data,
             dtype=np.array(data).dtype,
         )
 
-        return iztrans_num
+        return response
