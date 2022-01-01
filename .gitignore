@@ -20,6 +20,7 @@ __pycache__
 !docs/build/html/*
 docs/build/html/*
 !docs/build/html/_static/
+!docs/build/html/_images/
 !docs/build/html/*.html
 !docs/build/html/*.css
 !docs/build/html/*.scss
