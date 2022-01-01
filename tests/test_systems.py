@@ -47,27 +47,13 @@ def test_DiscreteTimeSystem_filter(execution_id):
 
         npt.assert_allclose(y_n[n], y_expected)
 
-def test_DiscreteTimeSystem_iztrans_n_range_error():
+def test_DiscreteTimeSystem_impz_error():
     b, a = generate_random_system()
     n_range = (16,)
 
     H = DiscreteTimeSystem(b, a)
     with pytest.raises(ValueError):
-        H.iztrans(n_range=n_range)
-
-def test_DiscreteTimeSystem_iztrans_exp_equals_num():
-    b, a = generate_random_system()
-    n_range=(0, 10)
-
-    H = DiscreteTimeSystem(b, a)
-    h_exp, n = H.iztrans()
-    h_n = H.iztrans(n_range=n_range)
-
-    for i in range(*n_range):
-        npt.assert_almost_equal(
-            np.clongdouble(h_exp.subs(n, i)),
-            np.clongdouble(h_n[i]),
-        )
+        H.impz(n_range=n_range)
 
 @pytest.mark.parametrize(
     'b, a, h, n_range',
@@ -77,10 +63,9 @@ def test_DiscreteTimeSystem_iztrans_exp_equals_num():
         ((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),
     ],
 )
-def test_DiscreteTimeSystem_iztrans_impz_num(b, a, h, n_range):
+def test_DiscreteTimeSystem_impz(b, a, h, n_range):
     H = DiscreteTimeSystem(b, a)
-    h_n_iztrans = H.iztrans(n_range=n_range)
-    h_n_impz = H.impz(n_range=n_range)
+    h_n_computed = H.impz(n_range=n_range)
 
     data = ()
     for n in range(*n_range):
@@ -88,6 +73,18 @@ def test_DiscreteTimeSystem_iztrans_impz_num(b, a, h, n_range):
 
     h_expected = DiscreteTimeSignal(data)
 
-    assert h_n_iztrans == h_expected
+    assert h_n_computed == h_expected
 
-    assert h_n_impz == h_expected
+def test_DiscreteTimeSystem_iztrans_impz():
+    b, a = generate_random_system()
+    n_range=(0, 10)
+
+    H = DiscreteTimeSystem(b, a)
+    h_exp, n = H.iztrans()
+    h_n = H.impz(n_range=n_range)
+
+    for i in range(*n_range):
+        npt.assert_almost_equal(
+            np.clongdouble(h_exp.subs(n, i)),
+            np.clongdouble(h_n[i]),
+        )
