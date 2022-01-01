@@ -144,14 +144,12 @@ The ``DiscreteTimeSystem`` class can also compute the **inverse z-transform** in
 Installation
 ------------
 
-Clone the repository:
+Clone the repository::
 
-::
    git clone https://github.com/alvii147/DiscreteTimeLib.git
 
-Install dependencies:
+Install dependencies::
 
-::
    cd DiscreteTimeLib/
    pip3 install -r requirements.txt
 
