@@ -45,7 +45,7 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 >>> plt.show()
 ```
 
-![Discrete Time Signal Plot](img/discrete_time_signal_plot.png)
+![Discrete Time Signal Plot](docs/img/discrete_time_signal_plot.png)
 
 ### Convolution
 
@@ -83,7 +83,7 @@ The `DiscreteTimeSignal` class can be used to model a discrete-time signal:
 >>> plt.show()
 ```
 
-![Convolution Plot](img/convolution_plot.png)
+![Convolution Plot](docs/img/convolution_plot.png)
 
 ### Filtering
 
@@ -124,7 +124,7 @@ The `DiscreteTimeSystem` class can be used to model a discrete-time system and a
 >>> plt.show()
 ```
 
-![Filtered Signal Plot](img/filtered_signal_plot.png)
+![Filtered Signal Plot](docs/img/filtered_signal_plot.png)
 
 ### Inverse z-transforms
 
