@@ -104,7 +104,7 @@ class DiscreteTimeSystem:
 
         return y_n
 
-    def iztrans(self, n_range=None):
+    def iztrans(self):
         '''
         Compute z-transform of system.
 
@@ -126,15 +126,6 @@ class DiscreteTimeSystem:
             returned if ``n_range`` is not given.
         '''
 
-        numeric_answer = False
-        # raise error if n_range shape is not (2,)
-        if n_range is not None:
-            n_range_shape = np.shape(n_range)
-            if len(n_range_shape) != 1 or n_range_shape[0] != 2:
-                raise ValueError('n_range must be a two-element array')
-
-            numeric_answer = True
-
         iztrans_exp = 0
         # get partial fraction decomposition
         r, p, k = residuez(self.b, self.a)
@@ -147,25 +138,6 @@ class DiscreteTimeSystem:
 
         for i in range(np.shape(k)[0]):
             iztrans_exp += k[i] * KroneckerDelta(n - i, 0)
-
-        if numeric_answer:
-            # compute inverse z-transform values for n_range
-            data = ()
-            for n_idx in range(*n_range):
-                val = iztrans_exp.subs(n, n_idx)
-                try:
-                    val = np.float64(iztrans_exp.subs(n, n_idx))
-                except TypeError:
-                    val = np.clongdouble(iztrans_exp.subs(n, n_idx))
-
-                data += ((n_idx, val),)
-
-            iztrans_num = DiscreteTimeSignal(
-                data,
-                dtype=np.array(data).dtype,
-            )
-
-            return iztrans_num
 
         return iztrans_exp, n
 
@@ -186,6 +158,27 @@ class DiscreteTimeSystem:
             Impulse response signal of system.
         '''
 
-        impulse_response = self.iztrans(n_range=n_range)
+        # raise error if n_range shape is not (2,)
+        n_range_shape = np.shape(n_range)
+        if len(n_range_shape) != 1 or n_range_shape[0] != 2:
+            raise ValueError('n_range must be a two-element array')
 
-        return impulse_response
+        # compute inverse z-transform values for n_range
+        iztrans_exp, n = self.iztrans()
+
+        data = ()
+        for n_idx in range(*n_range):
+            val = iztrans_exp.subs(n, n_idx)
+            try:
+                val = np.float64(iztrans_exp.subs(n, n_idx))
+            except TypeError:
+                val = np.clongdouble(iztrans_exp.subs(n, n_idx))
+
+            data += ((n_idx, val),)
+
+        iztrans_num = DiscreteTimeSignal(
+            data,
+            dtype=np.array(data).dtype,
+        )
+
+        return iztrans_num
