@@ -1,5 +1,5 @@
-DiscreteTimeLib.systems
-=======================
+systems
+=======
 
 .. automodule:: DiscreteTimeLib.systems
    :members:

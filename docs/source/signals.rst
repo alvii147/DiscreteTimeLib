@@ -1,5 +1,5 @@
-DiscreteTimeLib.signals
-=======================
+signals
+=======
 
 .. automodule:: DiscreteTimeLib.signals
    :members:
