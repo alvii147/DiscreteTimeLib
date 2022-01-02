@@ -192,6 +192,23 @@ coefficients.</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate filter at given input value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.clongdouble</em>) – Given input value.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>val</strong> – Conputed output value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.clongdouble</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.filter">
 <span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply digital filter on discrete-time signal.</p>
@@ -204,6 +221,28 @@ coefficients.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="signals.html#DiscreteTimeLib.signals.DiscreteTimeSignal" title="DiscreteTimeLib.signals.DiscreteTimeSignal">DiscreteTimeSignal</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.freqz">
+<span class="sig-name descname"><span class="pre">freqz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.freqz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute magnitude frequency response of system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w_range</strong> (<em>array-like</em>) – Range of angular velocities to compute frequency response for. For
+e.g. set <code class="docutils literal notranslate"><span class="pre">n_range</span> <span class="pre">=</span> <span class="pre">[-np.pi,</span> <span class="pre">np.pi]</span></code> to compute from
+<span class="math notranslate nohighlight">\(\omega = -\pi\)</span> to <span class="math notranslate nohighlight">\(\omega = -\pi\)</span>.</p></li>
+<li><p><strong>num</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of points to divide range into.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>freq_response</strong> – Frequency response of system.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
