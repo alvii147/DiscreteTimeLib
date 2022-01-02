@@ -73,6 +73,35 @@ class DiscreteTimeSystem:
         self.b = np.array(b)
         self.a = np.array(a)
 
+    def eval(self, z):
+        '''
+        Evaluate filter at given input value.
+
+        Parameters
+        ----------
+        z : numpy.clongdouble
+            Given input value.
+
+        Returns
+        -------
+        val : numpy.clongdouble
+            Conputed output value.
+        '''
+
+        # sum numerator values
+        numerator = np.clongdouble(0)
+        for i, b_i in enumerate(self.b):
+            numerator += b_i * (z ** (-i))
+
+        # sum denominator values
+        denominator = np.clongdouble(0)
+        for i, a_i in enumerate(self.a):
+            denominator += a_i * (z ** (-i))
+
+        val = numerator / denominator
+
+        return val
+
     def filter(self, sig):
         '''
         Apply digital filter on discrete-time signal.
@@ -173,3 +202,33 @@ class DiscreteTimeSystem:
         )
 
         return response
+
+    def freqz(self, w_range, num=50):
+        '''
+        Compute magnitude frequency response of system.
+
+        Parameters
+        ----------
+        w_range : array-like
+            Range of angular velocities to compute frequency response for. For
+            e.g. set ``n_range = [-np.pi, np.pi]`` to compute from
+            :math:`\\omega = -\\pi` to :math:`\\omega = -\\pi`.
+
+        num : int, optional
+            Number of points to divide range into.
+
+        Returns
+        -------
+        freq_response : numpy.ndarray
+            Frequency response of system.
+        '''
+
+        freq_response = np.zeros(num, dtype=np.float64)
+        # calculate frequency response using w values
+        for i, w in enumerate(np.linspace(w_range[0], w_range[1], num=num)):
+            # compute z value given w
+            z = np.cos(w) + (np.clongdouble(1j) * np.sin(w))
+            # compute magnitude of response
+            freq_response[i] = np.abs(self.eval(z))
+
+        return freq_response
