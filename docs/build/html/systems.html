@@ -228,7 +228,7 @@ coefficients.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="DiscreteTimeLib.systems.DiscreteTimeSystem.freqz">
 <span class="sig-name descname"><span class="pre">freqz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DiscreteTimeLib.systems.DiscreteTimeSystem.freqz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute magnitude frequency response of system.</p>
+<dd><p>Compute frequency response of system.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -239,10 +239,11 @@ e.g. set <code class="docutils literal notranslate"><span class="pre">n_range</s
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>freq_response</strong> – Frequency response of system.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>freq</strong> (<em>numpy.ndarray</em>) – Frequency response of system.</p></li>
+<li><p><strong>w_samples</strong> (<em>numpy.ndarray</em>) – Angular frequency values used to compute frequency response.</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
