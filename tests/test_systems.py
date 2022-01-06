@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 import numpy.testing as npt
+
 from DiscreteTimeLib import DiscreteTimeSystem
 from DiscreteTimeLib.signals import DiscreteTimeSignal
 
@@ -26,6 +27,21 @@ def test_DiscreteTimeSystem_init_error_shape():
     b, a = generate_random_system()
     with pytest.raises(ValueError):
         DiscreteTimeSystem(b, [[1, 2], [3, 4]])
+
+@pytest.mark.parametrize(
+    'b, a, z, expected_val',
+    [
+        [(0, 1), (1, -1), 2, 1],
+        [(0, 1), (1, -1), 1 - 2j, 0.5j],
+        [(1, 2, 4, 6), (1, -1, 2, -3, 5), -1, -0.25],
+        [(1, 2, 4, 6), (1, -1, 2, -3, 5), -1 + 1j, (-6 - 10j) / 17],
+    ]
+)
+def test_DiscreteTimeSystem_eval(b, a, z, expected_val):
+    H = DiscreteTimeSystem(b, a)
+    computed_val = H.eval(z)
+
+    npt.assert_allclose(computed_val, expected_val)
 
 @pytest.mark.parametrize('execution_id', range(10))
 def test_DiscreteTimeSystem_filter(execution_id):
@@ -58,9 +74,9 @@ def test_DiscreteTimeSystem_impz_error():
 @pytest.mark.parametrize(
     'b, a, h, n_range',
     [
-        ((1,), (1,), (1, 0, 0, 0), (0, 4)),
-        ((0, 1), (1, -2), (0, 1, 2, 4), (0, 4)),
-        ((1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)),
+        [(1,), (1,), (1, 0, 0, 0), (0, 4)],
+        [(0, 1), (1, -2), (0, 1, 2, 4), (0, 4)],
+        [(1,), (1, -2, 10), (1, 2, -6, -32), (0, 4)],
     ],
 )
 def test_DiscreteTimeSystem_impz(b, a, h, n_range):
@@ -88,3 +104,12 @@ def test_DiscreteTimeSystem_iztrans_impz():
             np.clongdouble(h_exp.subs(n, i)),
             np.clongdouble(h_n[i]),
         )
+
+def test_DiscreteTimeSystem_freqz():
+    b, a = generate_random_system()
+    H = DiscreteTimeSystem(b, a)
+
+    w_expected = np.linspace(-np.pi, np.pi, num=20)
+    fr, w_samples = H.freqz((-np.pi, np.pi), num=20)
+
+    npt.assert_allclose(w_samples, w_expected)

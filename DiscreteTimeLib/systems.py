@@ -205,7 +205,7 @@ class DiscreteTimeSystem:
 
     def freqz(self, w_range, num=50):
         '''
-        Compute magnitude frequency response of system.
+        Compute frequency response of system.
 
         Parameters
         ----------
@@ -219,16 +219,20 @@ class DiscreteTimeSystem:
 
         Returns
         -------
-        freq_response : numpy.ndarray
+        freq : numpy.ndarray
             Frequency response of system.
+
+        w_samples : numpy.ndarray
+            Angular frequency values used to compute frequency response.
         '''
 
-        freq_response = np.zeros(num, dtype=np.float64)
+        freq = np.zeros(num, dtype=np.clongdouble)
+        w_samples = np.linspace(w_range[0], w_range[1], num=num)
         # calculate frequency response using w values
-        for i, w in enumerate(np.linspace(w_range[0], w_range[1], num=num)):
+        for i, w in enumerate(w_samples):
             # compute z value given w
             z = np.cos(w) + (np.clongdouble(1j) * np.sin(w))
-            # compute magnitude of response
-            freq_response[i] = np.abs(self.eval(z))
+            # evaluate frequency at z value
+            freq[i] = self.eval(z)
 
-        return freq_response
+        return freq, w_samples
