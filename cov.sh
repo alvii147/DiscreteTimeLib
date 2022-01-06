@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # move to script parent directory
 cd "$(dirname "$0")"
 

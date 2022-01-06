@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # remove current html docs
 rm -rf docs/build/
 
