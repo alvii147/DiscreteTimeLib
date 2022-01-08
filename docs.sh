@@ -1,3 +1,6 @@
+# move to script directory
+cd "$(dirname "$0")"
+
 # remove current html docs
 rm -rf docs/build/
 
