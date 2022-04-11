@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 
 # remove current html docs
-rm -rf docs/build/
+rm -rf build/
 
 # build html docs
-sphinx-build -b html docs/source/ docs/build/html
+sphinx-build -b html source/ build/html
